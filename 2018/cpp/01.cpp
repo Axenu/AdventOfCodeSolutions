@@ -1,7 +1,9 @@
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <string>
+#include <vector>
 
 int main() {
 
@@ -12,22 +14,35 @@ int main() {
     return 1;
   }
 
-  // implementation
-  int sum = 0;
-
+  std::vector<std::string> rows;
   while (!input_file.eof()) {
     getline(input_file, line);
-    // handle row
     if (!line.empty()) {
-      std::istringstream ss(line);
-      int i;
-      ss >> i;
-      sum += i;
+      rows.push_back(line);
     }
   }
-  std::cout << sum << std::endl;
-
   input_file.close();
+
+  // implementation
+  int sum = 0;
+  bool done = false;
+  std::map<int, bool> visited;
+
+  while (!done) {
+    for (int i = 0; i < rows.size(); i++) {
+      std::istringstream ss(rows[i]);
+      int j;
+      ss >> j;
+      sum += j;
+      // std::cout << sum << std::endl;
+      if (visited.find(sum) != visited.end()) {
+        std::cout << sum << std::endl;
+        done = true;
+        break;
+      }
+      visited[sum] = true;
+    }
+  }
 
   return 0;
 }
