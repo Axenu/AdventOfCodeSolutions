@@ -34,7 +34,6 @@ int main() {
       int j;
       ss >> j;
       sum += j;
-      // std::cout << sum << std::endl;
       if (visited.find(sum) != visited.end()) {
         std::cout << sum << std::endl;
         done = true;
